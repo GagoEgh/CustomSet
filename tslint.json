@@ -1,0 +1,22 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "newline-before-return": false,
+        "interface-name" : [true, "always-prefix"],
+        "semicolon": [true, "always"],
+        "variable-name": {
+            "options": [
+              "allow-leading-underscore",
+            ]
+          },
+        
+        //   "semicolon": [true, "always"]
+
+        
+    },
+    "rulesDirectory": []
+}

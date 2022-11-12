@@ -1,74 +1,132 @@
 "use strict";
-// new Set(iterable) – создаёт Set, и если в качестве аргумента был предоставлен итерируемый объект (обычно это массив), то копирует его значения в новый Set.
-// set.add(value) – добавляет значение (если оно уже есть, то ничего не делает), возвращает тот же объект set.
-// set.delete(value) – удаляет значение, возвращает true, если value было в множестве на момент вызова, иначе false.
-// set.has(value) – возвращает true, если значение присутствует в множестве, иначе false.
-// set.clear() – удаляет все имеющиеся значения.
-// set.size – возвращает количество элементов в множестве.
-var _a;
-class CustomArray {
-    constructor(arr = []) {
-        this._state = {};
-        this.size = 0;
-        this[_a] = () => {
-            let done = false;
-            let index = 0;
-            const keys = Object.keys(this._state);
-            return {
-                next: () => {
-                    const key = keys[index];
-                    if (index === keys.length) {
-                        this.size = keys.length;
-                        done = true;
-                    }
-                    index++;
-                    return {
-                        value: this._state[key],
-                        done
-                    };
-                }
-            };
-        };
-        if (arr?.length > 0) {
-            for (let i of arr) {
-                this.add(i);
-            }
-        }
+// const promise = new Promise((resolve, reject) => {
+//     reject('err');
+//     resolve(9);
+// })
+// promise.then((res) => {
+//     console.log(res)
+// })
+// promise.catch((err) => {
+//     console.log(err)
+// })
+// promise.then((res) => {
+//     console.log(res)
+// }).catch((err) => {
+//     console.log(err)
+// })
+// const promise = new Promise((resolve, reject) => {
+//     reject('reject')
+// })
+// promise.catch((err) => {
+//     console.log(err);
+//     return new Promise((resolve, reject) => {
+//         resolve('resolve')
+//     })
+// }).then((result) => {
+//     console.log(result)
+// })
+// fetch('https://api.github.com/users/iliakan')
+//     .then((res) => {
+//         console.log('fetch', res);
+//         return res.json()
+//     }).then((v) => {
+//         console.log('val', v)
+//     })
+// const pmAll = Promise.all([
+//     new Promise((resolve) => resolve('res1')),
+//     new Promise((resolve) => resolve('res2')),
+//     new Promise((resolve,reject) => reject('err')),
+//     new Promise((resolve) => resolve('res4'))
+// ])
+// pmAll.then((values) => {
+//     console.log(values)
+// }).catch((err)=>{
+//     console.log(err)
+// })
+// let names = ['iliakan', 'remy', 'jeresig'];
+// const requests = names.map(name => fetch(`https://api.github.com/users/${name}`));
+// const pmAll = Promise.all(requests);
+// pmAll.then((responses) => {
+//     responses.forEach(res => {
+//         console.log(res);
+//     });
+//     return Promise.all(responses.map(r => r.json()))
+// }).then((val) => {
+//     console.log(val)
+// })
+// --------------------------------------------------------
+// const promise1 = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         resolve('text 1');
+//     }, 1000)
+// })
+// const promise2 = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//         resolve('text 2');
+//     }, 3000)
+// })
+// async function asProm() {
+//     let a: number | string = 5;
+//     const result2 = await promise2;
+//     a = 5 + "5";
+//     let result1 = await promise1;
+//     console.log( result2,result1)
+//     console.log(a);
+// }
+// asProm()
+// let c = 4;
+// let d = 7;
+// let g = c + d;
+// console.log('g', g);
+// ------------------------------------------------
+// async function getErr() {
+//     const promise = new Promise((resolve, reject) => {
+//         reject('errorr')
+//     })
+//     try {
+//         let res = await promise;
+//         console.log('try', res);
+//     } catch (err) {
+//         console.log('err', err)
+//     }
+// }
+// getErr()
+// const promise2 = new Promise((resolve) => {
+//     setTimeout(() => {
+//         resolve('second');
+//     }, 10000)
+// })
+// const promise = new Promise((resolve) => {
+//     setTimeout(() => {
+//         resolve('first');
+//     }, 5000)
+// })
+// function log() {
+//     promise2.then((v) => {
+//         console.log('v', v);
+//         return promise
+//     }).then(d => {
+//         console.log('d', d);
+//     })
+// }
+// log();
+// -------------------------------------
+// new binding
+// class User {
+//     age: number;
+//     name: string;
+//     constructor(name: string, age: number) {
+//         this.name = name;
+//         this.age = age;
+//     }
+// }
+// const user = new User('Ono', 4545);
+// --------------------------------------------
+const obj = {
+    age: 12,
+    log: function () {
+        console.log(this.age);
     }
-    add(item) {
-        this._state[JSON.stringify(item)] = item;
-        this.size++;
-    }
-    delete(item) {
-        let key = JSON.stringify(item);
-        if (key in this._state) {
-            delete this._state[key];
-            this.size--;
-            return true;
-        }
-        return false;
-    }
-    has(item) {
-        let key = JSON.stringify(item);
-        if (key in this._state) {
-            return true;
-        }
-        return false;
-    }
-    clear() {
-        const keys = Object.keys(this._state);
-        for (let key in this._state) {
-            delete this._state[key];
-        }
-        this.size = 0;
-    }
-}
-_a = Symbol.iterator;
-const arg = new CustomArray([3, 4, 5, 6, 3, 6]);
-arg.add(56);
-const customArray = new CustomArray();
-customArray.add('Barev');
-customArray.add('Barev 1');
-customArray.add('Barev 2');
-customArray.add('Barev 1');
-customArray.add('Barev 4');
+};
+const { log } = obj;
+log();
